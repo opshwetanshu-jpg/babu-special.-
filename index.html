@@ -3,52 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Babu 💖</title>
+<title>For My Special One 💖</title>
 
 <style>
+/* ================= BASIC RESET ================= */
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:Poppins, sans-serif;
+  font-family:"Poppins",system-ui,sans-serif;
 }
 
 body{
-  height:100vh;
-  background:linear-gradient(135deg,#ffd1e8,#ffe6f0);
+  min-height:100vh;
+  background:linear-gradient(135deg,#ffd6e8,#fff1f6);
   overflow:hidden;
 }
 
-/* ================= START SCREEN ================= */
-.start-screen{
+/* ================= BACKGROUND EMOJI LAYER ================= */
+#bg{
   position:fixed;
   inset:0;
+  z-index:1;
+  pointer-events:none;
+}
+
+/* ================= START SCREEN ================= */
+#startScreen{
+  position:fixed;
+  inset:0;
+  z-index:10;
+  background:linear-gradient(135deg,#ffd6e8,#fff1f6);
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
   padding:30px;
-  background:linear-gradient(135deg,#ffd1e8,#ffe6f0);
-  z-index:10;
   transition:opacity 1s ease;
 }
 
-.start-screen h1{
-  font-size:32px;
+#startScreen h1{
+  font-size:38px;
   color:#ff2f92;
-  margin-bottom:15px;
+  margin-bottom:18px;
 }
 
-.start-screen p{
+#startScreen p{
+  max-width:380px;
   font-size:18px;
+  line-height:1.8;
   color:#444;
-  max-width:320px;
-  margin-bottom:25px;
+  margin-bottom:30px;
 }
 
-.start-btn{
-  padding:14px 40px;
+#startScreen button{
+  padding:14px 50px;
   border:none;
   border-radius:30px;
   background:#ff2f92;
@@ -57,269 +67,336 @@ body{
   cursor:pointer;
 }
 
+/* ================= MAIN APP ================= */
+#app{
+  position:relative;
+  z-index:2;
+}
+
 /* ================= PAGES ================= */
 .page{
+  min-height:100vh;
+  padding:35px 25px;
   display:none;
-  height:100vh;
-  padding:30px;
-  text-align:center;
+  flex-direction:column;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
+  text-align:center;
 }
 
 .page.active{
   display:flex;
-  animation:fadeIn 1.2s ease;
+  animation:fadeIn 1s ease;
 }
 
 @keyframes fadeIn{
-  from{opacity:0;transform:scale(0.96)}
-  to{opacity:1;transform:scale(1)}
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
-h1{
+/* ================= TEXT & TITLE ================= */
+.title{
+  font-size:30px;
   color:#ff2f92;
-  margin-bottom:15px;
+  margin-bottom:20px;
+}
+
+.textBox{
   position:relative;
+  max-width:380px;
+  margin-bottom:28px;
 }
 
-p{
+.text{
   font-size:18px;
+  line-height:1.9;
   color:#444;
-  max-width:340px;
-  line-height:1.6;
-  min-height:80px;
+  min-height:180px;
+  word-break:break-word;
 }
 
-button{
-  margin-top:25px;
-  padding:12px 32px;
+/* ================= HEART ORBIT ================= */
+.orbit{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:260px;
+  height:260px;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+
+.orbit span{
+  position:absolute;
+  left:50%;
+  top:0;
+  transform-origin:0 130px;
+  animation:spin 10s linear infinite;
+  font-size:18px;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+
+/* ================= BUTTON ================= */
+.next{
+  padding:12px 42px;
   border:none;
-  border-radius:25px;
+  border-radius:28px;
   background:#ff2f92;
   color:white;
   font-size:16px;
   cursor:pointer;
 }
 
-/* ================= HEART ORBIT ================= */
-.orbit{
-  position:absolute;
-  top:-25px;
-  left:50%;
-  width:120px;
-  height:120px;
-  transform:translateX(-50%);
-}
-
-.orbit span{
-  position:absolute;
-  animation:orbit 6s linear infinite;
-}
-
-@keyframes orbit{
-  from{transform:rotate(0deg) translateX(60px) rotate(0deg)}
-  to{transform:rotate(360deg) translateX(60px) rotate(-360deg)}
-}
-
 /* ================= FLOATING EMOJIS ================= */
-.float{
-  position:fixed;
-  bottom:-10px;
+.emoji{
+  position:absolute;
+  bottom:-30px;
   font-size:20px;
-  animation:floatUp 7s linear forwards;
+  opacity:0.7;
+  animation:floatUp 12s linear forwards;
 }
 
 @keyframes floatUp{
-  to{transform:translateY(-120vh);opacity:0}
+  to{
+    transform:translateY(-120vh);
+    opacity:0;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<audio id="bgMusic" src="song.mp3" loop></audio>
+<audio id="music" src="song.mp3" loop></audio>
+<div id="bg"></div>
 
-<!-- START SCREEN -->
-<div class="start-screen" id="startScreen">
+<!-- ================= START SCREEN ================= -->
+<div id="startScreen">
   <h1>Hey Babu 💖</h1>
   <p>
-    Ye chhoti si duniya sirf isliye banayi hai,
-    taaki tum yahan aakar thoda sa pyaar mehsoos kar sako.
+    Ye sirf ek website nahi hai.  
+    Ye un sab feelings ka chhota sa hissa hai  
+    jo main shabdon me kabhi theek se keh nahi paata.  
+    Start dabana matlab meri duniya me ek kadam aage badhna.
   </p>
-  <button class="start-btn" onclick="startLove()">Start ✨</button>
+  <button onclick="startApp()">Start ✨</button>
 </div>
 
-<!-- PAGE 1 -->
-<section class="page active" style="background:#ffe6f0">
-<h1>
-Aaj ka Mood 🙂
-<div class="orbit"><span>💖</span></div>
-</h1>
-<p class="type">
-Tumhara mood meri duniya ka rang ban jata hai,
-tum khush hoti ho toh sab kuch khoobsurat lagta hai.
-</p>
-<button onclick="next()">Next</button>
+<!-- ================= APP ================= -->
+<div id="app">
+
+<!-- PAGE TEMPLATE COPY STYLE (10 PAGES BELOW) -->
+
+<section class="page active">
+  <div class="title">Page 1 🌸</div>
+  <div class="textBox">
+    <div class="orbit">
+      <span>💖</span><span>✨</span><span>🌸</span>
+    </div>
+    <div class="text type">
+      Kabhi kabhi bina kisi wajah ke tumhara khayal aata hai,  
+      aur us pal sab kuch thoda sa slow ho jaata hai.  
+      Jaise duniya ruk gayi ho aur sirf tumhari presence hi kaafi ho.
+    </div>
+  </div>
+  <button class="next" onclick="nextPage()">Next</button>
 </section>
 
-<!-- PAGE 2 -->
-<section class="page" style="background:#fff0e6">
-<h1>
-Virtual Hug 🤍
-<div class="orbit"><span>✨</span></div>
-</h1>
-<p class="type">
-Agar is waqt tum saamne hoti,
-toh bina bole bas tumhe zor se gale laga leta.
-</p>
-<button onclick="next()">Next</button>
+<section class="page">
+  <div class="title">Page 2 💫</div>
+  <div class="textBox">
+    <div class="orbit">
+      <span>💖</span><span>✨</span><span>💫</span>
+    </div>
+    <div class="text type">
+      Tumhari ek simple si baat bhi  
+      mere dimaag me kaafi der tak ghoomti rehti hai,  
+      jaise usme koi alag hi warmth ho jo dheere dheere dil tak pahunchti hai.
+    </div>
+  </div>
+  <button class="next" onclick="nextPage()">Next</button>
 </section>
 
-<!-- PAGE 3 -->
-<section class="page" style="background:#f3e6ff">
-<h1>
-❤️
-<div class="orbit"><span>💫</span></div>
-</h1>
-<p class="type">
-Mera dil har dhadkan me tumhara naam leta hai,
-aur har pal tumhari khushi maangta hai.
-</p>
-<button onclick="next()">Next</button>
+<section class="page">
+  <div class="title">Page 3 🤍</div>
+  <div class="textBox">
+    <div class="orbit">
+      <span>🤍</span><span>💖</span><span>✨</span>
+    </div>
+    <div class="text type">
+      Main ye nahi keh raha ki sab perfect hai,  
+      par jab tum yaad aati ho,  
+      tab imperfections bhi thodi si khoobsurat lagne lagti hain.
+    </div>
+  </div>
+  <button class="next" onclick="nextPage()">Next</button>
 </section>
 
-<!-- PAGE 4 -->
-<section class="page" style="background:#ffe0eb">
-<h1>
-BABU ✨
-<div class="orbit"><span>🌸</span></div>
-</h1>
-<p class="type">
-Ye sirf ek naam nahi,
-ye meri sabse pyaari feeling hai.
-</p>
-<button onclick="next()">Next</button>
+<section class="page">
+  <div class="title">Page 4 🌷</div>
+  <div class="textBox">
+    <div class="orbit">
+      <span>🌷</span><span>💖</span><span>✨</span>
+    </div>
+    <div class="text type">
+      Shayad tumhe idea bhi nahi hai  
+      ki tumhari ek chhoti si smile  
+      kisi ka din kaise behtar bana sakti hai  
+      bina kuch zyada kiye.
+    </div>
+  </div>
+  <button class="next" onclick="nextPage()">Next</button>
 </section>
 
-<!-- PAGE 5 -->
-<section class="page" style="background:#ffeef5">
-<h1>Mystery Box 🎁</h1>
-<p class="type">
-Is box me koi gift nahi,
-par ek sach hai — tum meri life ka best surprise ho.
-</p>
-<button onclick="next()">Next</button>
+<section class="page">
+  <div class="title">Page 5 💕</div>
+  <div class="textBox">
+    <div class="orbit">
+      <span>💕</span><span>✨</span><span>💖</span>
+    </div>
+    <div class="text type">
+      Tumhare saath baat karte waqt  
+      waqt ka pata hi nahi chalta,  
+      jaise kuch pal chhote hote hain  
+      par unki value bohot zyada hoti hai.
+    </div>
+  </div>
+  <button class="next" onclick="nextPage()">Next</button>
 </section>
 
-<!-- PAGE 6 -->
-<section class="page" style="background:#fff5f8">
-<h1>Little Truth 💌</h1>
-<p class="type">
-Main hamesha perfect nahi hota,
-par tumhare liye meri feelings hamesha real hain.
-</p>
-<button onclick="next()">Next</button>
+<section class="page">
+  <div class="title">Page 6 ✨</div>
+  <div class="textBox">
+    <div class="orbit">
+      <span>✨</span><span>💖</span><span>🌸</span>
+    </div>
+    <div class="text type">
+      Agar kabhi tum khud ko kam samajhne lago,  
+      toh bas itna yaad rakhna  
+      kahin na kahin koi hai  
+      jiske liye tum kaafi zyada important ho.
+    </div>
+  </div>
+  <button class="next" onclick="nextPage()">Next</button>
 </section>
 
-<!-- PAGE 7 -->
-<section class="page" style="background:#ffe6f2">
-<h1>Magic Mirror ✨</h1>
-<p class="type">
-Is mirror me jo dikhta hai,
-wo ek bohot hi khoobsurat dil hai.
-</p>
-<button onclick="next()">Next</button>
+<section class="page">
+  <div class="title">Page 7 🌙</div>
+  <div class="textBox">
+    <div class="orbit">
+      <span>🌙</span><span>💖</span><span>✨</span>
+    </div>
+    <div class="text type">
+      Raat ke quiet moments me bhi  
+      tumhara khayal aata hai,  
+      jaise koi soft si awaaz ho  
+      jo bina bole sab keh jaati hai.
+    </div>
+  </div>
+  <button class="next" onclick="nextPage()">Next</button>
 </section>
 
-<!-- PAGE 8 -->
-<section class="page" style="background:#fff0f5">
-<h1>Bad Day? 🥺</h1>
-<p class="type">
-Agar kabhi din heavy lage,
-toh yaad rakhna tum akeli nahi ho.
-</p>
-<button onclick="next()">Next</button>
+<section class="page">
+  <div class="title">Page 8 💖</div>
+  <div class="textBox">
+    <div class="orbit">
+      <span>💖</span><span>✨</span><span>💫</span>
+    </div>
+    <div class="text type">
+      Main ye nahi keh sakta ki future kaisa hoga,  
+      par itna zaroor hai  
+      ki tumhara hona us future ko  
+      thoda zyada bright bana deta hai.
+    </div>
+  </div>
+  <button class="next" onclick="nextPage()">Next</button>
 </section>
 
-<!-- PAGE 9 -->
-<section class="page" style="background:#ffe6fa">
-<h1>Firefly Night 🌟</h1>
-<p class="type">
-Jaise andheri raat me roshni chamakti hai,
-waise hi tum meri life ko roshan karti ho.
-</p>
-<button onclick="next()">Next</button>
+<section class="page">
+  <div class="title">Page 9 🌸</div>
+  <div class="textBox">
+    <div class="orbit">
+      <span>🌸</span><span>💖</span><span>✨</span>
+    </div>
+    <div class="text type">
+      Ye saare shabd perfect nahi hain,  
+      par sachche hain.  
+      Bilkul us feeling ki tarah  
+      jo tumhara naam sunte hi aa jaati hai.
+    </div>
+  </div>
+  <button class="next" onclick="nextPage()">Next</button>
 </section>
 
-<!-- PAGE 10 -->
-<section class="page" style="background:#ffe6f0">
-<h1>For You 💕</h1>
-<p class="type">
-Ye sab sirf isliye banaya,
-taaki tumhe pata chale tum kitni special ho.
-</p>
+<section class="page">
+  <div class="title">Page 10 💝</div>
+  <div class="textBox">
+    <div class="orbit">
+      <span>💝</span><span>💖</span><span>✨</span>
+    </div>
+    <div class="text type">
+      Bas itna hi kehna tha…  
+      tum important ho,  
+      tum special ho,  
+      aur ye jagah sirf tumhare liye banayi gayi thi.
+    </div>
+  </div>
 </section>
+
+</div>
 
 <script>
-let i=0;
+let current=0;
 const pages=document.querySelectorAll(".page");
-const music=document.getElementById("bgMusic");
+const music=document.getElementById("music");
 
 /* START */
-function startLove(){
+function startApp(){
   const s=document.getElementById("startScreen");
   s.style.opacity="0";
   music.play().catch(()=>{});
-  setTimeout(()=>s.style.display="none",1000);
+  setTimeout(()=>s.remove(),1000);
+  typeText(pages[0]);
 }
 
-/* NEXT */
-function next(){
-  if(i<pages.length-1){
-    pages[i].classList.remove("active");
-    i++;
-    pages[i].classList.add("active");
-    typeText(pages[i].querySelector(".type"));
+/* NEXT PAGE */
+function nextPage(){
+  if(current < pages.length-1){
+    pages[current].classList.remove("active");
+    current++;
+    pages[current].classList.add("active");
+    typeText(pages[current]);
   }
 }
 
 /* TYPING EFFECT */
-function typeText(el){
-  const text=el.innerText;
-  el.innerText="";
-  let idx=0;
+function typeText(page){
+  const box=page.querySelector(".type");
+  const full=box.innerText;
+  box.innerText="";
+  let i=0;
   const t=setInterval(()=>{
-    el.innerText+=text[idx];
-    idx++;
-    if(idx>=text.length) clearInterval(t);
+    box.innerText+=full.charAt(i);
+    i++;
+    if(i>=full.length) clearInterval(t);
   },30);
 }
-typeText(document.querySelector(".page.active .type"));
 
 /* FLOATING EMOJIS */
-const emojis=["💖","✨","🌸","💫"];
+const emojis=["💖","✨","🌸","💫","🤍","💕"];
 setInterval(()=>{
   const e=document.createElement("div");
-  e.className="float";
+  e.className="emoji";
   e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
   e.style.left=Math.random()*100+"%";
-  document.body.appendChild(e);
-  setTimeout(()=>e.remove(),7000);
-},600);
-
-/* TAP HEART */
-document.body.addEventListener("click",(ev)=>{
-  const h=document.createElement("div");
-  h.className="float";
-  h.innerText="💖";
-  h.style.left=ev.clientX+"px";
-  h.style.top=ev.clientY+"px";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-});
+  document.getElementById("bg").appendChild(e);
+  setTimeout(()=>e.remove(),12000);
+},700);
 </script>
 
 </body>
-     </html>
+    </html>
