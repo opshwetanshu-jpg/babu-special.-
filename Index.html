@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Babu 💕</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+
+body{
+  background:linear-gradient(270deg,#ffd1e8,#ffe6f0);
+  height:100vh;
+  overflow:hidden;
+}
+
+.page{
+  display:none;
+  height:100vh;
+  padding:30px;
+  text-align:center;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+.page.active{display:flex}
+
+h1{color:#ff2f92;margin-bottom:12px}
+p{
+  font-size:18px;
+  color:#444;
+  max-width:320px;
+  line-height:1.4;
+}
+
+button{
+  margin-top:25px;
+  padding:12px 32px;
+  border:none;
+  border-radius:25px;
+  background:#ff2f92;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+
+/* Heartbeat */
+.heart{
+  font-size:50px;
+  animation:beat 1s infinite;
+}
+@keyframes beat{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.3)}
+  100%{transform:scale(1)}
+}
+
+/* Floating letters */
+.name span{
+  display:inline-block;
+  animation:float 2s infinite;
+}
+@keyframes float{
+  50%{transform:translateY(-12px)}
+}
+
+/* Glow */
+.glow{animation:glow 2s infinite alternate}
+@keyframes glow{
+  from{text-shadow:0 0 5px pink}
+  to{text-shadow:0 0 18px hotpink}
+}
+
+/* Fireflies */
+.firefly{
+  position:fixed;
+  width:5px;height:5px;
+  background:gold;
+  border-radius:50%;
+  animation:fly 6s linear infinite;
+}
+@keyframes fly{
+  from{bottom:-10%}
+  to{bottom:110%;opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music -->
+<audio id="bgMusic" src="song.mp3" loop></audio>
+
+<!-- PAGE 1 -->
+<section class="page active">
+<h1>Aaj ka Mood 🙂</h1>
+<p>
+Tumhara mood meri duniya ka color hai,<br>
+jab tum khush hoti ho sab acha lagta hai.
+</p>
+<button onclick="next()">Next</button>
+</section>
+
+<!-- PAGE 2 -->
+<section class="page">
+<h1>Virtual Hug 🤍</h1>
+<p>
+Agar saamne hota toh zor se gale laga leta,<br>
+abhi ye chhota sa hug meri taraf se.
+</p>
+<button onclick="next()">Next</button>
+</section>
+
+<!-- PAGE 3 -->
+<section class="page">
+<div class="heart">❤️</div>
+<p>
+Mera dil har pal tumhara naam leta hai,<br>
+tumhari ek smile pe tez dhadakta hai.
+</p>
+<button onclick="next()">Next</button>
+</section>
+
+<!-- PAGE 4 -->
+<section class="page name">
+<h1>
+<span>B</span><span>A</span><span>B</span><span>U</span>
+</h1>
+<p>
+Ye naam sirf shabd nahi hai,<br>
+ye meri sabse pyaari feeling hai.
+</p>
+<button onclick="next()">Next</button>
+</section>
+
+<!-- PAGE 5 -->
+<section class="page">
+<h1>Mystery Box 🎁</h1>
+<p>
+Is box ke andar koi gift nahi,<br>
+bas tumhari importance chhupi hai.
+</p>
+<button onclick="next()">Next</button>
+</section>
+
+<!-- PAGE 6 -->
+<section class="page">
+<h1>Flip Surprise 💌</h1>
+<p>
+Kabhi kabhi chhoti cheezon me hi khushi hoti hai,<br>
+jaise tumhari ek cute si baat.
+</p>
+<button onclick="next()">Next</button>
+</section>
+
+<!-- PAGE 7 -->
+<section class="page">
+<h1 class="glow">Magic Mirror ✨</h1>
+<p>
+Is mirror me jo dikhta hai na,<br>
+wo ek bohot hi pyaara dil hai.
+</p>
+<button onclick="next()">Next</button>
+</section>
+
+<!-- PAGE 8 -->
+<section class="page">
+<h1>Bad Day? 🥺</h1>
+<p>
+Agar din thoda heavy lag raha ho,<br>
+yaad rakhna tum akeli nahi ho.
+</p>
+<button onclick="next()">Next</button>
+</section>
+
+<!-- PAGE 9 -->
+<section class="page">
+<h1>Firefly Night 🌟</h1>
+<p>
+Jaise ye roshni andhere me chamakti hai,<br>
+waise hi tum meri life ko bright karti ho.
+</p>
+<button onclick="next()">Next</button>
+</section>
+
+<!-- PAGE 10 -->
+<section class="page">
+<h1>For You 💕</h1>
+<p>
+Ye sab sirf isliye banaya hai,<br>
+taaki tum thoda sa smile kar sako.
+</p>
+</section>
+
+<script>
+let i = 0;
+const pages = document.querySelectorAll(".page");
+const music = document.getElementById("bgMusic");
+let musicStarted = false;
+
+function next(){
+  if(!musicStarted){
+    music.play().catch(()=>{});
+    musicStarted = true;
+  }
+
+  if(i < pages.length - 1){
+    pages[i].classList.remove("active");
+    i++;
+    pages[i].classList.add("active");
+  }
+}
+
+/* fireflies effect */
+setInterval(()=>{
+  const f = document.createElement("div");
+  f.className = "firefly";
+  f.style.left = Math.random()*100 + "%";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),6000);
+},700);
+</script>
+
+</body>
+</html>
