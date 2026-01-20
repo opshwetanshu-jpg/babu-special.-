@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Babu 💕</title>
+<title>For My Babu 💖</title>
 
 <style>
-/* ================= RESET ================= */
 *{
   margin:0;
   padding:0;
@@ -14,67 +13,27 @@
   font-family:Poppins, sans-serif;
 }
 
-/* ================= BODY ================= */
 body{
-  min-height:100vh;
   background:linear-gradient(180deg,#ffe6f0,#ffd1e8);
+  min-height:100vh;
   overflow:hidden;
 }
 
-/* ================= START SCREEN ================= */
-.start-screen{
-  position:fixed;
-  inset:0;
-  z-index:1000;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:40px;
-  background:linear-gradient(180deg,#ffd1e8,#ffe6f0);
-}
-
-.start-screen h1{
-  font-size:34px;
-  color:#ff2f92;
-  margin-bottom:20px;
-}
-
-.start-screen p{
-  max-width:360px;
-  font-size:18px;
-  line-height:1.8;
-  color:#444;
-  margin-bottom:30px;
-}
-
-.start-btn{
-  padding:16px 48px;
-  font-size:18px;
-  border:none;
-  border-radius:40px;
-  background:#ff2f92;
-  color:white;
-  cursor:pointer;
-}
-
-/* ================= PAGE ================= */
-.page{
+/* ---------- COMMON ---------- */
+.screen{
   display:none;
   min-height:100vh;
-  width:100%;
-  padding:60px 30px;
+  padding:40px 25px;
+  text-align:center;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  text-align:center;
 }
 
-.page.active{
+.screen.active{
   display:flex;
-  animation:fadeUp 0.8s ease;
+  animation:fadeUp 0.9s ease;
 }
 
 @keyframes fadeUp{
@@ -82,257 +41,192 @@ body{
   to{opacity:1; transform:translateY(0)}
 }
 
-.page h1{
-  font-size:30px;
+h1{
   color:#ff2f92;
-  margin-bottom:16px;
+  margin-bottom:18px;
 }
 
-.page p{
-  font-size:18px;
-  line-height:1.9;
-  max-width:380px;
+p{
+  max-width:360px;
+  line-height:1.8;
+  font-size:17px;
   color:#444;
-  margin-bottom:32px;
+  margin-bottom:30px;
 }
 
-/* ================= BUTTON ================= */
-.next-btn{
-  padding:14px 42px;
+/* ---------- BUTTON ---------- */
+.btn{
+  padding:14px 40px;
   border:none;
-  border-radius:35px;
+  border-radius:30px;
   background:#ff2f92;
   color:white;
   font-size:16px;
-  cursor:pointer;
 }
 
-/* ================= FLOATING EMOJIS ================= */
+/* ---------- START ---------- */
+#start{
+  display:flex;
+}
+
+/* ---------- HEART FLOAT ---------- */
 .emoji{
   position:fixed;
-  bottom:-40px;
+  bottom:-30px;
   font-size:22px;
-  animation:floatEmoji 9s linear forwards;
-  z-index:0;
-  pointer-events:none;
+  animation:float 9s linear forwards;
 }
 
-@keyframes floatEmoji{
+@keyframes float{
   to{
     transform:translateY(-120vh) rotate(360deg);
     opacity:0;
   }
 }
 
-/* ================= TAP HEART ================= */
-.tap-heart{
+/* ---------- TAP HEART ---------- */
+.tap{
   position:fixed;
   font-size:26px;
-  animation:tapHeart 1.4s ease forwards;
-  pointer-events:none;
-  z-index:50;
+  animation:tap 1.3s ease forwards;
 }
 
-@keyframes tapHeart{
+@keyframes tap{
   from{transform:scale(0);opacity:1}
-  to{transform:scale(1.6) translateY(-80px);opacity:0}
+  to{transform:scale(1.5) translateY(-80px);opacity:0}
 }
 
-/* ================= HEART BEAT ================= */
-.heartbeat{
-  font-size:48px;
-  animation:beat 1s infinite;
-  margin-bottom:12px;
-}
-
-@keyframes beat{
-  50%{transform:scale(1.25)}
-}
-
-/* ================= BOX ================= */
-.box{
-  width:120px;
-  height:120px;
-  background:#ff2f92;
-  border-radius:20px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:white;
-  font-size:20px;
-  cursor:pointer;
-  margin-bottom:20px;
-}
-
-.box.open{display:none}
-
-/* ================= MIRROR ================= */
+/* ---------- MIRROR ---------- */
 .mirror{
-  width:160px;
-  height:160px;
+  width:150px;
+  height:150px;
   border-radius:50%;
   background:linear-gradient(145deg,#eee,#fff);
   margin-bottom:20px;
-  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<audio id="bgMusic" src="song.mp3" loop></audio>
+<audio id="music" src="song.mp3" loop></audio>
 
 <!-- START -->
-<div class="start-screen" id="startScreen">
+<section class="screen active" id="start">
   <h1>Hey Babu 💖</h1>
   <p>
-Ye sirf website nahi hai,  
-ye meri feelings ka safar hai.  
-Dheere-dheere aage badho 💕
+Ye koi normal website nahi hai.  
+Ye meri feelings ka chhota sa safar hai.
   </p>
-  <button class="start-btn" onclick="startLove()">Start ✨</button>
-</div>
+  <button class="btn" onclick="start()">Start ✨</button>
+</section>
 
 <!-- PAGE 1 -->
-<section class="page">
-  <div class="heartbeat">❤️</div>
-  <h1>Aaj ka Mood</h1>
-  <p>
-Tumhara mood meri duniya ka rang hai.  
-Tum muskura do, sab kuch khubsurat lagta hai.
-  </p>
-  <button class="next-btn" onclick="next()">Next</button>
+<section class="screen">
+  <h1>Aaj ka Mood 🙂</h1>
+  <p>Tumhari ek smile meri duniya ka rang badal deti hai.</p>
+  <button class="btn" onclick="next()">Next</button>
 </section>
 
 <!-- PAGE 2 -->
-<section class="page">
+<section class="screen">
   <h1>Virtual Hug 🤍</h1>
-  <p>
-Agar tum paas hoti,  
-toh shabdon ki zarurat hi nahi hoti.
-  </p>
-  <button class="next-btn" onclick="next()">Next</button>
+  <p>Ye hug shabdon se zyada gehra hai.</p>
+  <button class="btn" onclick="next()">Next</button>
 </section>
 
 <!-- PAGE 3 -->
-<section class="page">
-  <h1>Dil Ki Baat</h1>
-  <p>
-Mera dil sirf ek baat jaanta hai —  
-tumhari khushi meri priority hai.
-  </p>
-  <button class="next-btn" onclick="next()">Next</button>
+<section class="screen">
+  <h1>Dil ❤️</h1>
+  <p>Mera dil har pal tumhari khushi chaahta hai.</p>
+  <button class="btn" onclick="next()">Next</button>
 </section>
 
 <!-- PAGE 4 -->
-<section class="page">
+<section class="screen">
   <h1>BABU ✨</h1>
-  <p>
-Ye naam sirf lafz nahi,  
-ye meri sabse pyaari feeling hai.
-  </p>
-  <button class="next-btn" onclick="next()">Next</button>
+  <p>Ye sirf naam nahi, ek feeling hai.</p>
+  <button class="btn" onclick="next()">Next</button>
 </section>
 
 <!-- PAGE 5 -->
-<section class="page">
-  <h1>Mystery Box 🎁</h1>
-  <div class="box" onclick="this.classList.add('open');this.nextElementSibling.style.display='block'">Tap Me</div>
-  <p style="display:none">
-Tum meri zindagi ka  
-sabse khoobsurat surprise ho 💖
-  </p>
-  <button class="next-btn" onclick="next()">Next</button>
+<section class="screen">
+  <h1>Mystery 🎁</h1>
+  <p>Tum meri life ka sabse pyaara surprise ho.</p>
+  <button class="btn" onclick="next()">Next</button>
 </section>
 
 <!-- PAGE 6 -->
-<section class="page">
+<section class="screen">
   <h1>Little Truth 💌</h1>
-  <p>
-Tumhari ek smile  
-mera poora din bana deti hai.
-  </p>
-  <button class="next-btn" onclick="next()">Next</button>
+  <p>Tumhari ek baat bhi mera din bana deti hai.</p>
+  <button class="btn" onclick="next()">Next</button>
 </section>
 
 <!-- PAGE 7 -->
-<section class="page">
+<section class="screen">
   <h1>Magic Mirror ✨</h1>
-  <div class="mirror" onclick="this.nextElementSibling.style.display='block'"></div>
-  <p style="display:none">
-Yahan ek bohot pyaari,  
-bohot special insaan dikhti hai 💕
-  </p>
-  <button class="next-btn" onclick="next()">Next</button>
+  <div class="mirror"></div>
+  <p>Is mirror me ek bohot special insaan hai.</p>
+  <button class="btn" onclick="next()">Next</button>
 </section>
 
 <!-- PAGE 8 -->
-<section class="page">
+<section class="screen">
   <h1>Bad Day? 🥺</h1>
-  <p>
-Agar din heavy lage,  
-toh yaad rakhna — tum akeli nahi ho.
-  </p>
-  <button class="next-btn" onclick="next()">Next</button>
+  <p>Yaad rakhna, tum kabhi akeli nahi ho.</p>
+  <button class="btn" onclick="next()">Next</button>
 </section>
 
 <!-- PAGE 9 -->
-<section class="page">
-  <h1>Firefly Night 🌟</h1>
-  <p>
-Andheri raat me bhi roshni hoti hai,  
-tum meri roshni ho.
-  </p>
-  <button class="next-btn" onclick="next()">Next</button>
+<section class="screen">
+  <h1>Firefly 🌟</h1>
+  <p>Chhoti roshni bhi andhera hara deti hai.</p>
+  <button class="btn" onclick="next()">Next</button>
 </section>
 
 <!-- PAGE 10 -->
-<section class="page">
-  <h1>For You 💕</h1>
-  <p>
-Ye sab sirf isliye banaya,  
-taaki tum mehsoos kar sako —  
-tum bohot special ho.
-  </p>
+<section class="screen">
+  <h1>For You 💖</h1>
+  <p>Ye sab sirf tumhare liye.</p>
 </section>
 
 <script>
-let pages=document.querySelectorAll(".page");
-let index=0;
-let music=document.getElementById("bgMusic");
-let emojis=["💖","✨","🌸","💫","💝"];
+let screens=document.querySelectorAll(".screen");
+let i=0;
 
-function startLove(){
-  document.getElementById("startScreen").style.display="none";
-  pages[0].classList.add("active");
-  music.play().catch(()=>{});
+function start(){
+  screens[0].classList.remove("active");
+  screens[1].classList.add("active");
+  document.getElementById("music").play().catch(()=>{});
+  i=1;
 }
 
 function next(){
-  if(index<pages.length-1){
-    pages[index].classList.remove("active");
-    index++;
-    pages[index].classList.add("active");
-  }
+  screens[i].classList.remove("active");
+  i++;
+  screens[i].classList.add("active");
 }
 
+/* floating emojis */
 setInterval(()=>{
   let e=document.createElement("div");
   e.className="emoji";
-  e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+  e.innerText=["💖","✨","🌸","💫"][Math.floor(Math.random()*4)];
   e.style.left=Math.random()*100+"%";
   document.body.appendChild(e);
   setTimeout(()=>e.remove(),9000);
 },800);
 
+/* tap heart */
 document.addEventListener("click",e=>{
   let h=document.createElement("div");
-  h.className="tap-heart";
+  h.className="tap";
   h.innerText="💖";
   h.style.left=e.clientX+"px";
   h.style.top=e.clientY+"px";
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),1400);
+  setTimeout(()=>h.remove(),1300);
 });
 </script>
 
