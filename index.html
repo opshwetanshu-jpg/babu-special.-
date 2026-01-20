@@ -14,6 +14,38 @@ body{
   overflow:hidden;
 }
 
+/* START SCREEN */
+.start-screen{
+  position:fixed;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:30px;
+  animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+.start-screen h1{color:#ff2f92;margin-bottom:15px}
+.start-screen p{color:#444;font-size:18px;max-width:320px;margin-bottom:25px}
+
+.start-btn{
+  padding:14px 40px;
+  border:none;
+  border-radius:30px;
+  background:#ff2f92;
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+}
+
+/* PAGES */
 .page{
   display:none;
   height:100vh;
@@ -27,11 +59,20 @@ body{
 .page.active{display:flex}
 
 h1{color:#ff2f92;margin-bottom:12px}
+
+/* FLOATING TEXT */
 p{
   font-size:18px;
   color:#444;
   max-width:340px;
-  line-height:1.6;
+  line-height:1.5;
+  position:relative;
+  animation:textFloat 3s ease-in-out infinite;
+}
+
+@keyframes textFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
 }
 
 button{
@@ -45,212 +86,185 @@ button{
   cursor:pointer;
 }
 
-/* Heart beat */
-.heart{
-  font-size:52px;
-  animation:beat 1s infinite;
-}
-@keyframes beat{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.3)}
-  100%{transform:scale(1)}
-}
-
-/* Floating hearts */
-.floating-heart{
-  position:fixed;
-  bottom:-10px;
-  font-size:20px;
-  animation:floatUp 5s linear infinite;
-}
-@keyframes floatUp{
-  from{transform:translateY(0);opacity:1}
-  to{transform:translateY(-110vh);opacity:0}
-}
-
-/* Mystery box */
-.box{
-  font-size:80px;
-  cursor:pointer;
-  transition:transform .4s;
-}
-.box.open{transform:scale(1.2) rotate(10deg)}
-
-/* Magic mirror */
-.mirror{
-  width:200px;
-  height:260px;
-  border-radius:50%;
-  background:linear-gradient(#fff,#ddd);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:18px;
-  cursor:pointer;
-  position:relative;
-}
-.mirror.crack::after{
-  content:"";
+/* HEART ORBIT */
+.orbit{
   position:absolute;
-  width:100%;
-  height:100%;
-  background:
-    linear-gradient(45deg,transparent 45%,#000 46%,transparent 47%),
-    linear-gradient(-45deg,transparent 45%,#000 46%,transparent 47%);
+  font-size:14px;
+  animation:orbit 4s linear infinite;
 }
-.truth{
-  display:none;
-  margin-top:15px;
-  color:#ff2f92;
-  font-weight:600;
+
+@keyframes orbit{
+  from{transform:rotate(0deg) translateX(40px) rotate(0deg)}
+  to{transform:rotate(360deg) translateX(40px) rotate(-360deg)}
+}
+
+/* FLOATING EMOJIS */
+.emoji{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation:drift 8s linear forwards;
+}
+
+@keyframes drift{
+  to{
+    transform:translateY(-120vh) translateX(40px);
+    opacity:0;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- MUSIC -->
 <audio id="bgMusic" src="song.mp3" loop></audio>
 
-<!-- PAGE 1 -->
-<section class="page active">
-<h1>Hey Babu 💕</h1>
-<p>
-Ye chhoti si duniya maine sirf isliye banayi hai,
-taaki tum yahan aakar thoda sa pyaar mehsoos kar sako.
-</p>
-<button onclick="startLove()">Start 💖</button>
-</section>
+<!-- START SCREEN -->
+<div class="start-screen" id="startScreen">
+  <h1>Hey Babu 💖</h1>
+  <p>
+    Ye chhoti si duniya maine sirf isliye banayi hai,
+    taaki tum yahan aakar thoda sa pyaar mehsoos kar sako.
+  </p>
+  <button class="start-btn" onclick="startLove()">Start ✨</button>
+</div>
 
-<!-- PAGE 2 -->
-<section class="page">
+<!-- PAGES -->
+<section class="page active">
 <h1>Aaj ka Mood 🙂</h1>
 <p>
-Tumhara mood meri duniya ka color hai,
-tum khush hoti ho toh sab kuch theek lagta hai.
+Tumhara mood meri duniya ka color ban jata hai.
+<span class="orbit">💖</span>
 </p>
 <button onclick="next()">Next</button>
 </section>
 
-<!-- PAGE 3 -->
 <section class="page">
 <h1>Virtual Hug 🤍</h1>
 <p>
-Agar saamne hota toh bina kuch bole
-bas tumhe gale laga leta.
+Agar tum mere saamne hoti,
+toh main bina bole gale laga leta.
+<span class="orbit">💖</span>
 </p>
 <button onclick="next()">Next</button>
 </section>
 
-<!-- PAGE 4 -->
 <section class="page">
-<div class="heart">❤️</div>
+<h1>❤️</h1>
 <p>
-Mera dil har waqt tumhara hi naam leta hai,
-aur tumhari smile pe aur tez dhadakta hai.
+Mera dil har pal tumhara naam leta hai.
+<span class="orbit">💖</span>
 </p>
 <button onclick="next()">Next</button>
 </section>
 
-<!-- PAGE 5 – MYSTERY BOX -->
+<section class="page">
+<h1>BABU ✨</h1>
+<p>
+Ye sirf naam nahi,
+ye meri sabse pyari feeling hai.
+<span class="orbit">💖</span>
+</p>
+<button onclick="next()">Next</button>
+</section>
+
 <section class="page">
 <h1>Mystery Box 🎁</h1>
-<div class="box" onclick="openBox()">🎁</div>
-<p id="boxText" style="display:none;margin-top:15px;">
-Surprise ye hai ke tum mere liye
-sirf special nahi, bohot zyada important ho 💖
-</p>
-<button onclick="next()">Next</button>
-</section>
-
-<!-- PAGE 6 -->
-<section class="page">
-<h1>Little Surprise 💌</h1>
 <p>
-Chhoti chhoti baatein hi
-sabse pyaari yaadein ban jaati hain.
+Is box me ek sach hai —
+tum meri sabse khoobsurat surprise ho.
+<span class="orbit">💖</span>
 </p>
 <button onclick="next()">Next</button>
 </section>
 
-<!-- PAGE 7 – MAGIC MIRROR -->
+<section class="page">
+<h1>Little Truth 💌</h1>
+<p>
+Tumhari value meri zindagi me bohot zyada hai.
+<span class="orbit">💖</span>
+</p>
+<button onclick="next()">Next</button>
+</section>
+
 <section class="page">
 <h1>Magic Mirror ✨</h1>
-<div class="mirror" onclick="breakMirror()">
-Touch Me
-</div>
-<div class="truth" id="truth">
-Sach ye hai ke tum bohot khoobsurat ho,
-andar se bhi aur bahar se bhi 💕
-</div>
+<p>
+Is mirror me ek dil dikhega jo sirf tumhara hai.
+<span class="orbit">💖</span>
+</p>
 <button onclick="next()">Next</button>
 </section>
 
-<!-- PAGE 8 -->
 <section class="page">
 <h1>Bad Day? 🥺</h1>
 <p>
-Agar din thoda heavy ho,
-toh yaad rakhna tum akeli nahi ho.
+Jab bhi din heavy ho,
+yaad rakhna koi tumhare saath hai.
+<span class="orbit">💖</span>
 </p>
 <button onclick="next()">Next</button>
 </section>
 
-<!-- PAGE 9 -->
 <section class="page">
 <h1>Firefly Night 🌟</h1>
 <p>
-Jaise roshni andhere ko hara deti hai,
-waise hi tum meri zindagi ko.
+Tum meri zindagi ki roshni ho.
+<span class="orbit">💖</span>
 </p>
 <button onclick="next()">Next</button>
 </section>
 
-<!-- PAGE 10 -->
 <section class="page">
 <h1>For You 💕</h1>
 <p>
-Ye sab sirf isliye hai
-taaki tum thoda sa smile kar sako.
+Ye sab isliye banaya hai,
+taaki tumhe pata chale tum special ho.
+<span class="orbit">💖</span>
 </p>
 </section>
 
 <script>
-let i = 0;
-const pages = document.querySelectorAll(".page");
-const music = document.getElementById("bgMusic");
+let i=0;
+const pages=document.querySelectorAll(".page");
+const music=document.getElementById("bgMusic");
 
 function startLove(){
+  document.getElementById("startScreen").style.display="none";
   music.play().catch(()=>{});
-  next();
 }
 
 function next(){
-  if(i < pages.length - 1){
+  if(i < pages.length-1){
     pages[i].classList.remove("active");
     i++;
     pages[i].classList.add("active");
   }
 }
 
-function openBox(){
-  document.querySelector(".box").classList.add("open");
-  document.getElementById("boxText").style.display="block";
-}
-
-function breakMirror(){
-  document.querySelector(".mirror").classList.add("crack");
-  document.getElementById("truth").style.display="block";
-}
-
-/* hearts */
-setInterval(()=>{
+/* Tap heart pop */
+document.addEventListener("click",(e)=>{
   const h=document.createElement("div");
-  h.className="floating-heart";
-  h.innerHTML="💖";
-  h.style.left=Math.random()*100+"%";
+  h.innerText="💖";
+  h.style.position="fixed";
+  h.style.left=e.clientX+"px";
+  h.style.top=e.clientY+"px";
+  h.style.animation="rise 2s linear";
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),5000);
-},600);
+  setTimeout(()=>h.remove(),2000);
+});
+
+/* Emoji drift */
+const emojis=["💖","✨","🌸","💫"];
+setInterval(()=>{
+  const em=document.createElement("div");
+  em.className="emoji";
+  em.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+  em.style.left=Math.random()*100+"%";
+  document.body.appendChild(em);
+  setTimeout(()=>em.remove(),8000);
+},700);
 </script>
 
 </body>
