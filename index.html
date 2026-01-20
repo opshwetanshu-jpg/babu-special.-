@@ -45,138 +45,166 @@ button{
   cursor:pointer;
 }
 
-/* Heartbeat */
-.heart{
-  font-size:50px;
-  animation:beat 1s infinite;
+/* ❤️ floating hearts */
+.heart-float{
+  position:fixed;
+  bottom:-20px;
+  font-size:22px;
+  animation:floatUp 6s linear infinite;
 }
-@keyframes beat{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.3)}
-  100%{transform:scale(1)}
-}
-
-/* Floating letters */
-.name span{
-  display:inline-block;
-  animation:float 2s infinite;
-}
-@keyframes float{
-  50%{transform:translateY(-12px)}
+@keyframes floatUp{
+  to{transform:translateY(-120vh);opacity:0}
 }
 
-/* Glow */
-.glow{animation:glow 2s infinite alternate}
-@keyframes glow{
-  from{text-shadow:0 0 5px pink}
-  to{text-shadow:0 0 18px hotpink}
+/* 🎁 Mystery Box */
+.box{
+  font-size:60px;
+  cursor:pointer;
+}
+.surprise{
+  display:none;
+  animation:pop 0.6s ease;
+}
+@keyframes pop{
+  from{transform:scale(0)}
+  to{transform:scale(1)}
 }
 
-/* Surprise Card */
-.dark{
-  background:black;
+/* 💌 Flip Card */
+.flip{
+  width:260px;
+  height:180px;
+  perspective:1000px;
 }
-.dark h1,.dark p{
+.flip-inner{
+  width:100%;
+  height:100%;
+  transition:transform 0.8s;
+  transform-style:preserve-3d;
+}
+.flip.active .flip-inner{
+  transform:rotateY(180deg);
+}
+.flip-front,.flip-back{
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  border-radius:15px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:15px;
+}
+.flip-front{
+  background:#ff2f92;
   color:white;
 }
-
-/* Fireflies */
-.firefly{
-  position:fixed;
-  width:5px;height:5px;
-  background:gold;
-  border-radius:50%;
-  animation:fly 6s linear infinite;
+.flip-back{
+  background:black;
+  color:white;
+  transform:rotateY(180deg);
 }
-@keyframes fly{
-  from{bottom:-10%}
-  to{bottom:110%;opacity:0}
+
+/* 🔮 Magic Mirror */
+.mirror{
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  background:radial-gradient(circle,#fff,#ccc);
+  margin:20px auto;
+  cursor:pointer;
+  box-shadow:0 0 25px rgba(255,47,146,0.6);
+  position:relative;
+  overflow:hidden;
+}
+.mirror.crack::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(45deg,transparent 48%,#000 50%,transparent 52%),
+    linear-gradient(-45deg,transparent 48%,#000 50%,transparent 52%);
+}
+.mirror-truth{
+  display:none;
+  animation:fadeIn 1s ease forwards;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 Background Music -->
 <audio id="bgMusic" src="song.mp3" loop></audio>
 
 <!-- PAGE 1 -->
 <section class="page active">
-<h1>Aaj ka Mood 🙂</h1>
-<p>
-Tumhara mood meri duniya ka color hai,<br>
-jab tum khush hoti ho sab acha lagta hai.
-</p>
+<h1>Hey Babu 🙂</h1>
+<p>Tumhari ek smile meri poori duniya bana deti hai.</p>
 <button onclick="next()">Next</button>
 </section>
 
 <!-- PAGE 2 -->
 <section class="page">
 <h1>Virtual Hug 🤍</h1>
-<p>
-Agar saamne hota toh zor se gale laga leta,<br>
-abhi ye chhota sa hug meri taraf se.
-</p>
+<p>Door ho kar bhi tum bohot paas ho.</p>
 <button onclick="next()">Next</button>
 </section>
 
 <!-- PAGE 3 -->
 <section class="page">
-<div class="heart">❤️</div>
-<p>
-Mera dil har pal tumhara naam leta hai,<br>
-tumhari ek smile pe tez dhadakta hai.
-</p>
+<h1>❤️</h1>
+<p>Mera dil sirf tumhare liye hi beat karta hai.</p>
 <button onclick="next()">Next</button>
 </section>
 
 <!-- PAGE 4 -->
-<section class="page name">
-<h1>
-<span>B</span><span>A</span><span>B</span><span>U</span>
-</h1>
-<p>
-Ye naam sirf shabd nahi hai,<br>
-ye meri sabse pyaari feeling hai.
-</p>
+<section class="page">
+<h1>B A B U</h1>
+<p>Sabse pyaara naam jo maine kabhi suna.</p>
 <button onclick="next()">Next</button>
 </section>
 
-<!-- PAGE 5 -->
+<!-- PAGE 5 MYSTERY -->
 <section class="page">
 <h1>Mystery Box 🎁</h1>
-<p>
-Is box ke andar koi gift nahi,<br>
-bas tumhari importance chhupi hai.
+<div class="box" onclick="openBox()">🎁</div>
+<p class="surprise" id="surpriseText">
+Haayee… tum bohot zyada cute ho 🥺<br>
+Aur aansu tum par bilkul ache nahi lagte.<br>
+Mere liye hamesha smile rakha karo 💕
 </p>
 <button onclick="next()">Next</button>
 </section>
 
-<!-- PAGE 6 (SURPRISE CARD) -->
-<section class="page dark">
-<h1>Hey Babu 🖤</h1>
-<p>
-Haayee… tum bohot cute ho,<br>
-aur ye aansu tum par ache nahi lagte.<br>
-Mere liye thoda sa muskura do na,<br>
-aur agar maine kuch galat kiya ho…<br>
-toh mujhe maaf kar dena.
-</p>
-<button onclick="next()">Next</button>
-</section>
-
-<!-- PAGE 7 (LONG EMOTION) -->
+<!-- PAGE 6 FLIP -->
 <section class="page">
-<h1 class="glow">Dil Ki Baat ✨</h1>
-<p>
-Kabhi kabhi main sochta hoon tumhe kaise samjhaun,
-tum meri zindagi ka wo hissa ho jo shabd mein nahi aata.
-Tumhari chhoti chhoti baatein, tumhari hasi,
-aur tumhara chup rehna bhi mujhe bohot apna lagta hai.
-Main perfect nahi hoon, par jo bhi hoon,
-dil se tumhari care karta hoon.
-Ye website, ye pages, ye sab ek chhoti si koshish hai,
-taaki tumhe mehsoos ho ki tum kitni special ho.
+<h1>Flip Surprise 💌</h1>
+<div class="flip" onclick="flipCard(this)">
+  <div class="flip-inner">
+    <div class="flip-front">Tap karo 💖</div>
+    <div class="flip-back">
+      Tum meri sabse pyaari feeling ho,<br>
+      aur hamesha rahogi 🖤
+    </div>
+  </div>
+</div>
+<button onclick="next()">Next</button>
+</section>
+
+<!-- PAGE 7 MAGIC MIRROR -->
+<section class="page">
+<h1>Magic Mirror ✨</h1>
+<div class="mirror" onclick="breakMirror(this)"></div>
+<p class="mirror-truth" id="truthText">
+Sach ye hai…<br>
+tum jitni strong dikhti ho na,<br>
+andar se utni hi soft aur pyaari ho 💗<br>
+aur tum deserve karti ho sirf khushi.
 </p>
 <button onclick="next()">Next</button>
 </section>
@@ -184,58 +212,62 @@ taaki tumhe mehsoos ho ki tum kitni special ho.
 <!-- PAGE 8 -->
 <section class="page">
 <h1>Bad Day? 🥺</h1>
-<p>
-Agar din thoda heavy lag raha ho,<br>
-yaad rakhna tum akeli nahi ho.
-</p>
+<p>Tum akeli nahi ho, main hoon.</p>
 <button onclick="next()">Next</button>
 </section>
 
 <!-- PAGE 9 -->
 <section class="page">
-<h1>Firefly Night 🌟</h1>
-<p>
-Jaise ye roshni andhere me chamakti hai,<br>
-waise hi tum meri life ko bright karti ho.
-</p>
+<h1>Magic 🌟</h1>
+<p>Tum meri life ka sabse bright part ho.</p>
 <button onclick="next()">Next</button>
 </section>
 
 <!-- PAGE 10 -->
 <section class="page">
 <h1>For You 💕</h1>
-<p>
-Ye sab sirf isliye banaya hai,<br>
-taaki tum thoda sa smile kar sako.
-</p>
+<p>Bas itna hi… tum smile kar do.</p>
 </section>
 
 <script>
-let i = 0;
-const pages = document.querySelectorAll(".page");
-const music = document.getElementById("bgMusic");
-let musicStarted = false;
+let i=0;
+const pages=document.querySelectorAll(".page");
+const music=document.getElementById("bgMusic");
+let started=false;
 
 function next(){
-  if(!musicStarted){
-    music.play().catch(()=>{});
-    musicStarted = true;
-  }
-  if(i < pages.length - 1){
+  if(!started){music.play().catch(()=>{});started=true;}
+  if(i<pages.length-1){
     pages[i].classList.remove("active");
     i++;
     pages[i].classList.add("active");
   }
 }
 
-/* fireflies */
+function openBox(){
+  document.getElementById("surpriseText").style.display="block";
+}
+
+function flipCard(el){
+  el.classList.toggle("active");
+}
+
+function breakMirror(el){
+  el.classList.add("crack");
+  setTimeout(()=>{
+    document.getElementById("truthText").style.display="block";
+  },500);
+}
+
+/* hearts from bottom */
 setInterval(()=>{
-  const f = document.createElement("div");
-  f.className = "firefly";
-  f.style.left = Math.random()*100 + "%";
-  document.body.appendChild(f);
-  setTimeout(()=>f.remove(),6000);
-},700);
+  const h=document.createElement("div");
+  h.className="heart-float";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"%";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},400);
 </script>
 
 </body>
