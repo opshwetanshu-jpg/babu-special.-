@@ -33,13 +33,14 @@ body{
   align-items:center;
   text-align:center;
   padding:30px;
-  z-index:100;
+  z-index:1000;
 }
 
 .start-screen h1{
   font-size:34px;
   color:#ff2f92;
   margin-bottom:15px;
+  animation:textFloat 4s ease-in-out infinite;
 }
 
 .start-screen p{
@@ -48,6 +49,7 @@ body{
   max-width:360px;
   line-height:1.8;
   margin-bottom:30px;
+  animation:textFloat 5s ease-in-out infinite;
 }
 
 .start-btn{
@@ -58,6 +60,13 @@ body{
   color:white;
   font-size:18px;
   animation:pulse 2s infinite;
+}
+
+/* ================= FLOATING TEXT ================= */
+@keyframes textFloat{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+  100%{transform:translateY(0)}
 }
 
 @keyframes pulse{
@@ -90,6 +99,7 @@ body{
   font-size:30px;
   color:#ff2f92;
   margin-bottom:15px;
+  animation:textFloat 4s ease-in-out infinite;
 }
 
 .page p{
@@ -98,6 +108,7 @@ body{
   max-width:380px;
   line-height:1.9;
   margin-bottom:30px;
+  animation:textFloat 5s ease-in-out infinite;
 }
 
 /* ================= BUTTON ================= */
@@ -128,6 +139,7 @@ body{
   font-size:24px;
   animation:float 9s linear forwards;
   pointer-events:none;
+  z-index:1;
 }
 
 @keyframes float{
@@ -143,6 +155,7 @@ body{
   font-size:26px;
   animation:tap 1.4s ease forwards;
   pointer-events:none;
+  z-index:50;
 }
 
 @keyframes tap{
@@ -195,14 +208,14 @@ body{
 <audio id="music" src="song.mp3" loop></audio>
 
 <!-- START -->
-<div class="start-screen" id="start">
+<div class="start-screen" id="startScreen">
   <h1>Hey Babu 💖</h1>
   <p>
 Ye sirf website nahi,  
 meri feelings ka safar hai.  
 Dheere-dheere aage badhna ✨
   </p>
-  <button class="start-btn" onclick="start()">Start</button>
+  <button class="start-btn" onclick="startLove()">Start</button>
 </div>
 
 <!-- PAGE 1 -->
@@ -210,28 +223,28 @@ Dheere-dheere aage badhna ✨
   <div class="heart">❤️</div>
   <h1>Aaj ka Mood</h1>
   <p>Tumhari smile meri duniya ka sabse khoobsurat rang hai.</p>
-  <button class="next-btn" onclick="next()">Next</button>
+  <button class="next-btn" onclick="nextPage()">Next</button>
 </section>
 
 <!-- PAGE 2 -->
 <section class="page">
   <h1>Virtual Hug</h1>
   <p>Agar paas hota, toh bina bole bas tumhe gale laga leta.</p>
-  <button class="next-btn" onclick="next()">Next</button>
+  <button class="next-btn" onclick="nextPage()">Next</button>
 </section>
 
 <!-- PAGE 3 -->
 <section class="page">
   <h1>Dil Ki Baat</h1>
   <p>Meri har soch ke centre me sirf tum ho.</p>
-  <button class="next-btn" onclick="next()">Next</button>
+  <button class="next-btn" onclick="nextPage()">Next</button>
 </section>
 
 <!-- PAGE 4 -->
 <section class="page">
   <h1>BABU ✨</h1>
   <p>Ye naam mere liye sirf lafz nahi, ek feeling hai.</p>
-  <button class="next-btn" onclick="next()">Next</button>
+  <button class="next-btn" onclick="nextPage()">Next</button>
 </section>
 
 <!-- PAGE 5 -->
@@ -239,14 +252,14 @@ Dheere-dheere aage badhna ✨
   <h1>Mystery Box 🎁</h1>
   <div class="box" onclick="this.innerText='💖'">Tap</div>
   <p>Tum meri life ka sabse pyaara surprise ho.</p>
-  <button class="next-btn" onclick="next()">Next</button>
+  <button class="next-btn" onclick="nextPage()">Next</button>
 </section>
 
 <!-- PAGE 6 -->
 <section class="page">
   <h1>Little Truth</h1>
-  <p>Tumhari ek chhoti si baat bhi mujhe bohot special feel karwati hai.</p>
-  <button class="next-btn" onclick="next()">Next</button>
+  <p>Tumhari ek smile mera poora din bana deti hai.</p>
+  <button class="next-btn" onclick="nextPage()">Next</button>
 </section>
 
 <!-- PAGE 7 -->
@@ -254,21 +267,21 @@ Dheere-dheere aage badhna ✨
   <h1>Magic Mirror ✨</h1>
   <div class="mirror" onclick="this.innerHTML='<div class=crack></div>'"></div>
   <p>Is mirror me ek bohot pyaari insaan dikh rahi hai.</p>
-  <button class="next-btn" onclick="next()">Next</button>
+  <button class="next-btn" onclick="nextPage()">Next</button>
 </section>
 
 <!-- PAGE 8 -->
 <section class="page">
   <h1>Bad Day?</h1>
   <p>Jab bhi din heavy lage, yaad rakhna main yahin hoon.</p>
-  <button class="next-btn" onclick="next()">Next</button>
+  <button class="next-btn" onclick="nextPage()">Next</button>
 </section>
 
 <!-- PAGE 9 -->
 <section class="page">
   <h1>Firefly Night 🌟</h1>
   <p>Andheri raat me bhi tum roshni ban jaati ho.</p>
-  <button class="next-btn" onclick="next()">Next</button>
+  <button class="next-btn" onclick="nextPage()">Next</button>
 </section>
 
 <!-- PAGE 10 -->
@@ -282,25 +295,26 @@ tum kitni special ho.
 </section>
 
 <script>
-let pages=document.querySelectorAll(".page");
-let i=0;
+const pages=document.querySelectorAll(".page");
+let current=0;
 
-function start(){
-  document.getElementById("start").style.display="none";
+function startLove(){
+  document.getElementById("startScreen").style.display="none";
   pages[0].classList.add("active");
   document.getElementById("music").play().catch(()=>{});
 }
 
-function next(){
-  if(i<pages.length-1){
-    pages[i].classList.remove("active");
-    i++;
-    pages[i].classList.add("active");
+function nextPage(){
+  if(current < pages.length-1){
+    pages[current].classList.remove("active");
+    current++;
+    pages[current].classList.add("active");
   }
 }
 
+/* floating emojis */
 setInterval(()=>{
-  let e=document.createElement("div");
+  const e=document.createElement("div");
   e.className="emoji";
   e.innerText=["💖","✨","🌸","💫"][Math.floor(Math.random()*4)];
   e.style.left=Math.random()*100+"%";
@@ -308,8 +322,9 @@ setInterval(()=>{
   setTimeout(()=>e.remove(),9000);
 },700);
 
+/* tap hearts */
 document.addEventListener("click",(ev)=>{
-  let h=document.createElement("div");
+  const h=document.createElement("div");
   h.className="tap-heart";
   h.innerText="💖";
   h.style.left=ev.clientX+"px";
@@ -320,4 +335,4 @@ document.addEventListener("click",(ev)=>{
 </script>
 
 </body>
-    </html>
+  </html>
