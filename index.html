@@ -30,8 +30,8 @@ h1{color:#ff2f92;margin-bottom:12px}
 p{
   font-size:18px;
   color:#444;
-  max-width:320px;
-  line-height:1.4;
+  max-width:340px;
+  line-height:1.5;
 }
 
 button{
@@ -70,6 +70,14 @@ button{
 @keyframes glow{
   from{text-shadow:0 0 5px pink}
   to{text-shadow:0 0 18px hotpink}
+}
+
+/* Surprise Card */
+.dark{
+  background:black;
+}
+.dark h1,.dark p{
+  color:white;
 }
 
 /* Fireflies */
@@ -144,22 +152,31 @@ bas tumhari importance chhupi hai.
 <button onclick="next()">Next</button>
 </section>
 
-<!-- PAGE 6 -->
-<section class="page">
-<h1>Flip Surprise 💌</h1>
+<!-- PAGE 6 (SURPRISE CARD) -->
+<section class="page dark">
+<h1>Hey Babu 🖤</h1>
 <p>
-Kabhi kabhi chhoti cheezon me hi khushi hoti hai,<br>
-jaise tumhari ek cute si baat.
+Haayee… tum bohot cute ho,<br>
+aur ye aansu tum par ache nahi lagte.<br>
+Mere liye thoda sa muskura do na,<br>
+aur agar maine kuch galat kiya ho…<br>
+toh mujhe maaf kar dena.
 </p>
 <button onclick="next()">Next</button>
 </section>
 
-<!-- PAGE 7 -->
+<!-- PAGE 7 (LONG EMOTION) -->
 <section class="page">
-<h1 class="glow">Magic Mirror ✨</h1>
+<h1 class="glow">Dil Ki Baat ✨</h1>
 <p>
-Is mirror me jo dikhta hai na,<br>
-wo ek bohot hi pyaara dil hai.
+Kabhi kabhi main sochta hoon tumhe kaise samjhaun,
+tum meri zindagi ka wo hissa ho jo shabd mein nahi aata.
+Tumhari chhoti chhoti baatein, tumhari hasi,
+aur tumhara chup rehna bhi mujhe bohot apna lagta hai.
+Main perfect nahi hoon, par jo bhi hoon,
+dil se tumhari care karta hoon.
+Ye website, ye pages, ye sab ek chhoti si koshish hai,
+taaki tumhe mehsoos ho ki tum kitni special ho.
 </p>
 <button onclick="next()">Next</button>
 </section>
@@ -204,7 +221,6 @@ function next(){
     music.play().catch(()=>{});
     musicStarted = true;
   }
-
   if(i < pages.length - 1){
     pages[i].classList.remove("active");
     i++;
@@ -212,7 +228,7 @@ function next(){
   }
 }
 
-/* fireflies effect */
+/* fireflies */
 setInterval(()=>{
   const f = document.createElement("div");
   f.className = "firefly";
@@ -223,4 +239,4 @@ setInterval(()=>{
 </script>
 
 </body>
-</html>
+  </html>
