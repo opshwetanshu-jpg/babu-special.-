@@ -24,16 +24,9 @@ body{
   align-items:center;
   text-align:center;
   padding:30px;
-  animation:fadeIn 1.5s ease;
+  animation:fadeIn 1.2s ease;
 }
-
-@keyframes fadeIn{
-  from{opacity:0}
-  to{opacity:1}
-}
-
-.start-screen h1{color:#ff2f92;margin-bottom:15px}
-.start-screen p{color:#444;font-size:18px;max-width:320px;margin-bottom:25px}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 .start-btn{
   padding:14px 40px;
@@ -42,7 +35,6 @@ body{
   background:#ff2f92;
   color:white;
   font-size:18px;
-  cursor:pointer;
 }
 
 /* PAGES */
@@ -50,222 +42,156 @@ body{
   display:none;
   height:100vh;
   padding:30px;
-  text-align:center;
   justify-content:center;
   align-items:center;
+  text-align:center;
   flex-direction:column;
 }
-
 .page.active{display:flex}
 
-h1{color:#ff2f92;margin-bottom:12px}
-
-/* FLOATING TEXT */
-p{
-  font-size:18px;
-  color:#444;
-  max-width:340px;
-  line-height:1.5;
-  position:relative;
-  animation:textFloat 3s ease-in-out infinite;
+/* HEARTBEAT */
+.heartbeat{
+  font-size:50px;
+  animation:beat 1.1s infinite;
 }
-
-@keyframes textFloat{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-8px)}
-}
-
-button{
-  margin-top:25px;
-  padding:12px 32px;
-  border:none;
-  border-radius:25px;
-  background:#ff2f92;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
-}
-
-/* HEART ORBIT */
-.orbit{
-  position:absolute;
-  font-size:14px;
-  animation:orbit 4s linear infinite;
-}
-
-@keyframes orbit{
-  from{transform:rotate(0deg) translateX(40px) rotate(0deg)}
-  to{transform:rotate(360deg) translateX(40px) rotate(-360deg)}
+@keyframes beat{
+  0%{transform:scale(1)}
+  30%{transform:scale(1.25)}
+  60%{transform:scale(1)}
 }
 
 /* FLOATING EMOJIS */
 .emoji{
   position:fixed;
-  bottom:-20px;
   font-size:20px;
-  animation:drift 8s linear forwards;
+  animation:float 10s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(110vh);opacity:1}
+  to{transform:translateY(-20vh);opacity:0}
 }
 
-@keyframes drift{
-  to{
-    transform:translateY(-120vh) translateX(40px);
-    opacity:0;
-  }
+/* ORBIT HEART */
+.orbit{
+  position:relative;
+}
+.orbit span{
+  position:absolute;
+  animation:orbit 6s linear infinite;
+}
+@keyframes orbit{
+  from{transform:rotate(0deg) translateX(40px)}
+  to{transform:rotate(360deg) translateX(40px)}
+}
+
+/* MYSTERY BOX */
+.box{
+  font-size:70px;
+  cursor:pointer;
+  animation:shake 1s infinite alternate;
+}
+@keyframes shake{
+  from{transform:rotate(-5deg)}
+  to{transform:rotate(5deg)}
+}
+
+/* MIRROR */
+.mirror{
+  width:140px;
+  height:200px;
+  background:linear-gradient(#fff,#ddd);
+  border-radius:10px;
+  margin:20px;
+}
+.crack{
+  background:repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(0,0,0,.2) 12px
+  );
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC -->
 <audio id="bgMusic" src="song.mp3" loop></audio>
 
-<!-- START SCREEN -->
-<div class="start-screen" id="startScreen">
+<div class="start-screen" id="start">
   <h1>Hey Babu 💖</h1>
-  <p>
-    Ye chhoti si duniya maine sirf isliye banayi hai,
-    taaki tum yahan aakar thoda sa pyaar mehsoos kar sako.
-  </p>
-  <button class="start-btn" onclick="startLove()">Start ✨</button>
+  <p>Ye chhoti si duniya sirf tumhare liye.</p>
+  <button class="start-btn" onclick="start()">Start ✨</button>
 </div>
 
-<!-- PAGES -->
 <section class="page active">
-<h1>Aaj ka Mood 🙂</h1>
-<p>
-Tumhara mood meri duniya ka color ban jata hai.
-<span class="orbit">💖</span>
-</p>
-<button onclick="next()">Next</button>
+  <div class="heartbeat">❤️</div>
+  <p>Mera dil har pal tumhara naam leta hai.</p>
+  <button onclick="next()">Next</button>
 </section>
 
 <section class="page">
-<h1>Virtual Hug 🤍</h1>
-<p>
-Agar tum mere saamne hoti,
-toh main bina bole gale laga leta.
-<span class="orbit">💖</span>
-</p>
-<button onclick="next()">Next</button>
+  <div class="box" onclick="openBox()">🎁</div>
+  <p id="boxText"></p>
 </section>
 
 <section class="page">
-<h1>❤️</h1>
-<p>
-Mera dil har pal tumhara naam leta hai.
-<span class="orbit">💖</span>
-</p>
-<button onclick="next()">Next</button>
+  <p>Tap the heart 3 times 💖</p>
+  <div class="heartbeat" onclick="tapHeart()">❤️</div>
+  <p id="truth"></p>
 </section>
 
 <section class="page">
-<h1>BABU ✨</h1>
-<p>
-Ye sirf naam nahi,
-ye meri sabse pyari feeling hai.
-<span class="orbit">💖</span>
-</p>
-<button onclick="next()">Next</button>
-</section>
-
-<section class="page">
-<h1>Mystery Box 🎁</h1>
-<p>
-Is box me ek sach hai —
-tum meri sabse khoobsurat surprise ho.
-<span class="orbit">💖</span>
-</p>
-<button onclick="next()">Next</button>
-</section>
-
-<section class="page">
-<h1>Little Truth 💌</h1>
-<p>
-Tumhari value meri zindagi me bohot zyada hai.
-<span class="orbit">💖</span>
-</p>
-<button onclick="next()">Next</button>
-</section>
-
-<section class="page">
-<h1>Magic Mirror ✨</h1>
-<p>
-Is mirror me ek dil dikhega jo sirf tumhara hai.
-<span class="orbit">💖</span>
-</p>
-<button onclick="next()">Next</button>
-</section>
-
-<section class="page">
-<h1>Bad Day? 🥺</h1>
-<p>
-Jab bhi din heavy ho,
-yaad rakhna koi tumhare saath hai.
-<span class="orbit">💖</span>
-</p>
-<button onclick="next()">Next</button>
-</section>
-
-<section class="page">
-<h1>Firefly Night 🌟</h1>
-<p>
-Tum meri zindagi ki roshni ho.
-<span class="orbit">💖</span>
-</p>
-<button onclick="next()">Next</button>
-</section>
-
-<section class="page">
-<h1>For You 💕</h1>
-<p>
-Ye sab isliye banaya hai,
-taaki tumhe pata chale tum special ho.
-<span class="orbit">💖</span>
-</p>
+  <div class="mirror" id="mirror" onclick="breakMirror()"></div>
+  <p id="mirrorText"></p>
 </section>
 
 <script>
-let i=0;
+let i=0, taps=0;
 const pages=document.querySelectorAll(".page");
 const music=document.getElementById("bgMusic");
 
-function startLove(){
-  document.getElementById("startScreen").style.display="none";
-  music.play().catch(()=>{});
+function start(){
+  document.getElementById("start").style.display="none";
+  music.play();
 }
 
 function next(){
-  if(i < pages.length-1){
-    pages[i].classList.remove("active");
-    i++;
-    pages[i].classList.add("active");
+  pages[i].classList.remove("active");
+  i++;
+  pages[i].classList.add("active");
+}
+
+function openBox(){
+  document.getElementById("boxText").innerText =
+  "Tum meri sabse pyaari surprise ho 💕";
+}
+
+function tapHeart(){
+  taps++;
+  if(taps===3){
+    document.getElementById("truth").innerText =
+    "Sach ye hai… tum bohot special ho 💖";
   }
 }
 
-/* Tap heart pop */
-document.addEventListener("click",(e)=>{
-  const h=document.createElement("div");
-  h.innerText="💖";
-  h.style.position="fixed";
-  h.style.left=e.clientX+"px";
-  h.style.top=e.clientY+"px";
-  h.style.animation="rise 2s linear";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),2000);
-});
+function breakMirror(){
+  const m=document.getElementById("mirror");
+  m.classList.add("crack");
+  document.getElementById("mirrorText").innerText =
+  "Is sheeshe me jo dikha… wo bohot khoobsurat hai ✨";
+}
 
-/* Emoji drift */
-const emojis=["💖","✨","🌸","💫"];
+/* floating emojis */
 setInterval(()=>{
-  const em=document.createElement("div");
-  em.className="emoji";
-  em.innerText=emojis[Math.floor(Math.random()*emojis.length)];
-  em.style.left=Math.random()*100+"%";
-  document.body.appendChild(em);
-  setTimeout(()=>em.remove(),8000);
-},700);
+  const e=document.createElement("div");
+  e.className="emoji";
+  e.innerText=["💖","✨","🌸","💫"][Math.floor(Math.random()*4)];
+  e.style.left=Math.random()*100+"%";
+  document.body.appendChild(e);
+  setTimeout(()=>e.remove(),10000);
+},800);
 </script>
 
 </body>
-  </html>
+    </html>
